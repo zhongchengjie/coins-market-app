@@ -38,7 +38,7 @@ app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 
 // 静态资源
-app.use(express.static(path.join(__dirname, '.', 'static')));
+app.use(express.static(path.join(__dirname, '..', 'public')));
 
 // 健康检查端点
 app.get('/health', (req, res) => {
@@ -80,7 +80,7 @@ async function startServer() {
   await dataUpdateService.initializeData();
 
   // 开始定期更新数据（每5分钟更新一次）
-  // dataUpdateService.startPeriodicUpdate(5);
+  dataUpdateService.startPeriodicUpdate(5);
 
   // 启动服务器
   app.listen(PORT, () => {

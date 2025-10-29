@@ -1,5 +1,5 @@
 import { useQuery } from 'react-query';
-import { getCoinsList } from '../apis/icons';
+import { getCoinsList } from '../apis/coins';
 import { SearchParams } from '../types';
 
 // 获取加密货币列表的Hook

@@ -24,15 +24,15 @@ const CardItem: React.FC<CardItemProps> = ({
   const { formatPrice, formatMarketCap, formatVolume, formatPercentage } = usePriceFormatter();
   const isPositiveChange = (coinItem.price_change_percentage_24h || 0) >= 0;
   const changeIcon = isPositiveChange ? MagicIcon : MagicIcon;
-  const changeColor = isPositiveChange ? 'success' : 'critical';
+  // const changeColor = isPositiveChange ? 'success' : 'critical';
 
   return (
     <Card>
       <Box padding="400">
-        <BlockStack vertical spacing="tight">
+        <BlockStack>
           {/* 头部信息 */}
-          <BlockStack distribution="equalSpacing" alignment="center">
-            <BlockStack spacing="tight" alignment="center">
+          <BlockStack>
+            <BlockStack>
               {coinItem.image && (
                 <Thumbnail
                   source={coinItem.image}
@@ -40,50 +40,50 @@ const CardItem: React.FC<CardItemProps> = ({
                   size="small"
                 />
               )}
-              <BlockStack vertical spacing="extraTight">
+              <BlockStack>
                 <Text variant="headingMd" as="h3">
                   {coinItem.name}
                 </Text>
-                <Text variant="bodySm" color="subdued">
+                <Text variant="bodySm" as="p">
                   {coinItem.symbol.toUpperCase()}
                 </Text>
               </BlockStack>
             </BlockStack>
             
-            <Badge status={changeColor} icon={changeIcon}>
+            <Badge icon={changeIcon}>
               {formatPercentage(coinItem.price_change_percentage_24h || 0)}
             </Badge>
           </BlockStack>
 
           {/* 价格信息 */}
-          <BlockStack vertical spacing="extraTight">
+          <BlockStack>
             <Text variant="headingLg" as="h2">
               {formatPrice(coinItem.current_price)}
             </Text>
             
             {coinItem.high_24h && coinItem.low_24h && (
-              <Text variant="bodySm" color="subdued">
+              <Text variant="bodySm" as="p">
                 24h: {formatPrice(coinItem.low_24h)} - {formatPrice(coinItem.high_24h)}
               </Text>
             )}
           </BlockStack>
 
           {/* 市场数据 */}
-          <BlockStack distribution="equalSpacing">
-            <BlockStack vertical spacing="extraTight">
-              <Text variant="bodySm" color="subdued">
+          <BlockStack>
+            <BlockStack>
+              <Text variant="bodySm" as="p">
                 市值
               </Text>
-              <Text variant="bodyMd">
+              <Text variant="bodyMd" as="p">
                 {coinItem.market_cap ? formatMarketCap(coinItem.market_cap) : 'N/A'}
               </Text>
             </BlockStack>
             
-            <BlockStack vertical spacing="extraTight">
-              <Text variant="bodySm" color="subdued">
+            <BlockStack>
+              <Text variant="bodySm" as="p">
                 24h交易量
               </Text>
-              <Text variant="bodyMd">
+              <Text variant="bodyMd" as="p">
                 {coinItem.total_volume ? formatVolume(coinItem.total_volume) : 'N/A'}
               </Text>
             </BlockStack>
@@ -91,7 +91,7 @@ const CardItem: React.FC<CardItemProps> = ({
 
           {/* 操作按钮 */}
           {onViewDetails && (
-            <Box paddingTop="200">
+            <Box>
               <Button
                 fullWidth
                 onClick={() => onViewDetails(coinItem)}

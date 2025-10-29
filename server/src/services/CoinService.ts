@@ -7,7 +7,7 @@ const db = knex(dbConf);
 export class CoinService {
   // 查询加密货币
   async queryCoins(params: SearchParams = {}): Promise<CoinsQueryResult> {
-    const { query, page = 1, limit = 50 } = params;
+    const { query, page = 1, limit = 50, sort = 'market_cap', order = 'desc' } = params;
     const offset = (page - 1) * limit;
 
     let queryBuilder = db("coins").select("*");
@@ -24,7 +24,10 @@ export class CoinService {
 
     let totalQueryBuilder = queryBuilder;
 
-    queryBuilder = queryBuilder.orderBy("market_cap", "desc");
+    // 排序
+    queryBuilder = queryBuilder.orderBy(sort === 'change' ? 'price_change_percentage_24h' : sort, order);
+
+    // 分页
     queryBuilder = queryBuilder.limit(limit).offset(offset);
 
     const list = await queryBuilder;
@@ -38,7 +41,7 @@ export class CoinService {
 
   // 根据ID获取加密货币
   async queryCoinById(id: number): Promise<Coins | null> {
-    const result = await db('coins').where('id', id).first();
+    const result = await db("coins").where("id", id).first();
     return result || null;
   }
 

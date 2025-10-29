@@ -31,8 +31,13 @@ export interface ApiError {
   message: string;
 }
 
+export type SortField = "symbol" | "current_price" | "market_cap" | "total_volume" | "change" | "high_24h" | "low_24h";
+export type OrderType = "asc" | "desc";
+
 export interface SearchParams {
   qs?: string;
   page?: number;
   limit?: number;
+  sort?: SortField,
+  order?: OrderType
 }

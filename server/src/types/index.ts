@@ -30,10 +30,15 @@ export interface SingleCoinResponse {
   data: Coins;
 }
 
+export type SortField = "symbol" | "current_price" | "market_cap" | "total_volume" | "change" | "high_24h" | "low_24h";
+export type OrderType = "asc" | "desc";
+
 export interface SearchParams {
   query?: string;
   page?: number;
   limit?: number;
+  sort?: SortField,
+  order?: OrderType
 }
 
 export interface ApiError {

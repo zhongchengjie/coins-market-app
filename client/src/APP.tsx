@@ -1,66 +1,53 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useCallback } from "react";
 import { Frame, TopBar, Page, Layout, Card } from "@shopify/polaris";
 import { SearchBar } from "./components/SearchBar";
 import CoinsCardList from "./components/CoinsCardList";
-import CoinsTable from "./components/CoinsTable/";
+import CoinsTable from "./components/CoinsTable";
 import { useGetCoinsList } from "./hooks/useCoins";
-import { Coins } from "./types";
+import { SortField, OrderType } from './types';
 
 const App: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [sortField, setSortField] = useState<SortField>('market_cap');
+  const [sortOrder, setSortOrder] = useState<OrderType>('desc');
   const {
     data: coinsData,
     isLoading: isLoadingCryptos,
-    error: cryptosError,
   } = useGetCoinsList({
     qs: searchQuery,
+    sort: sortField,
+    order: sortOrder
   });
-
-  // 监听窗口大小变化
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
 
   // 搜索处理
   const handleSearch = useCallback((query: string) => {
     setSearchQuery(query);
   }, []);
 
-  // 查看详情处理
-  const handleViewDetails = useCallback((crypto: Coins) => {
-    // setSelectedCrypto(crypto);
+  // 排序处理
+  const handleSortChange = useCallback((field: SortField, order: OrderType) => {
+    setSortField(field);
+    setSortOrder(order);
   }, []);
+
+  // 查看详情处理
+  /* const handleViewDetails = useCallback(() => {
+  }, []); */
 
   // 顶部导航栏
   const topBarMarkup = <TopBar />;
 
   return (
     <Frame topBar={topBarMarkup}>
-      <Page title="加密货币行情" subtitle="加密货币实时行情">
+      <Page title="加密货币" subtitle="加密货币实时行情">
         <Layout>
           <Layout.Section>
             <Card>
               <SearchBar isLoading={isLoadingCryptos} onSearch={handleSearch} />
-              {isMobile ? (
-                <CoinsCardList
-                  coinsData={coinsData?.data || []}
-                  isLoading={isLoadingCryptos}
-                  error={cryptosError?.message}
-                  onViewDetails={handleViewDetails}
-                />
-              ) : (
-                <CoinsTable
-                  coinsData={coinsData?.data || []}
-                  isLoading={isLoadingCryptos}
-                  error={cryptosError?.message}
-                  onViewDetails={handleViewDetails}
-                />
-              )}
+              <CoinsTable
+                coinsData={coinsData?.data || []}
+                onSortChange={handleSortChange}
+              />
             </Card>
           </Layout.Section>
         </Layout>
