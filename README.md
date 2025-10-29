@@ -1,6 +1,6 @@
 # 🚀 加密货币实时行情应用程序
 
-一个基于Web的现代化加密货币实时行情监控应用，提供实时价格数据、搜索功能和直观的用户界面。
+一个基于Web的现代化加密货币实时行情查询应用，提供实时价格、交易量等数据。
 
 ## 📋 项目概述
 
@@ -10,7 +10,7 @@
 
 ```
 coins-market-app/
-├── backend/                 # 后端API服务器
+├── server/                 # 后端API服务器
 │   ├── src/
 │   │   ├── controllers/     # 控制器
 │   │   ├── services/        # 业务逻辑服务
@@ -20,7 +20,7 @@ coins-market-app/
 │   │   └── types/           # TypeScript类型定义
 │   ├── Dockerfile
 │   └── package.json
-├── frontend/                # 前端React应用
+├── client/                # 前端React应用
 │   ├── src/
 │   │   ├── components/      # React组件
 │   │   ├── hooks/           # 自定义Hook
