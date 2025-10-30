@@ -1,7 +1,6 @@
 import React, { useState, useCallback } from "react";
 import { Frame, TopBar, Page, Layout, Card } from "@shopify/polaris";
 import { SearchBar } from "./components/SearchBar";
-import CoinsCardList from "./components/CoinsCardList";
 import CoinsTable from "./components/CoinsTable";
 import { useGetCoinsList } from "./hooks/useCoins";
 import { SortField, OrderType } from './types';

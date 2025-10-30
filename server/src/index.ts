@@ -10,7 +10,16 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 // 安全中间件
-app.use(helmet());
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      imgSrc: ["'self'", "data:", "https://assets.coingecko.com"],
+      scriptSrc: ["'self'"],
+      styleSrc: ["'self'", "'unsafe-inline'"],
+    },
+  },
+}));
 
 // CORS配置
 app.use(cors({

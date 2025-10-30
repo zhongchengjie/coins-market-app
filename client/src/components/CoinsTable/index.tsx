@@ -3,9 +3,9 @@ import {
   Box,
   DataTable,
   InlineStack,
-  Thumbnail,
   useBreakpoints,
 } from "@shopify/polaris";
+import FallbackThumbnail from '../FallbackThumbnail';
 import { Coins, SortField, OrderType } from "../../types";
 import usePriceFormatter from '../../hooks/usePriceFormatter';
 import styles from './table.module.css';
@@ -63,7 +63,11 @@ const CoinsTable: React.FC<CoinsTableProps> = ({
   const coinsDataRows = coinsData.map((item: any, index: number) => [
     <p className={styles.text_no}>{index + 1}</p>,
     <InlineStack align="start" blockAlign="center" gap="300">
-      <Thumbnail source={item.image} alt={item.name} size="extraSmall" />
+      <FallbackThumbnail
+        src={item.image}
+        alt={item.name}
+        size="extraSmall"
+      />
       <Box>
         <p className={styles.text_name}>{item.name}</p>
         <p className={styles.text_symbol}>{item.symbol}</p>
