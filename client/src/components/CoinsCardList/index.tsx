@@ -18,7 +18,7 @@ const CoinsCardList: React.FC<CoinsCardListProps> = ({
   return (
     <Box>
       <Grid>
-        {coinsData.map((item) => (
+        {coinsData.map((item: Coins) => (
           <Grid.Cell 
             key={item.id} 
             columnSpan={{ xs: 6, sm: 6, md: 4, lg: 3, xl: 3 }}

@@ -9,7 +9,6 @@ import FallbackThumbnail from '../FallbackThumbnail';
 import { Coins, SortField, OrderType } from "../../types";
 import usePriceFormatter from '../../hooks/usePriceFormatter';
 import styles from './table.module.css';
-
 interface CoinsTableProps {
   coinsData: Coins[];
   onSortChange: (field: SortField, order: OrderType) => void;
@@ -60,7 +59,7 @@ const CoinsTable: React.FC<CoinsTableProps> = ({
   ];
   
   // 表格数据
-  const coinsDataRows = coinsData.map((item: any, index: number) => [
+  const coinsDataRows = coinsData.map((item: Coins, index: number) => [
     <p className={styles.text_no}>{index + 1}</p>,
     <InlineStack align="start" blockAlign="center" gap="300" wrap={false}>
       <FallbackThumbnail
