@@ -89,7 +89,7 @@ async function startServer() {
   await dataUpdateService.initializeData();
 
   // 开始定期更新数据（每5分钟更新一次）
-  dataUpdateService.startPeriodicUpdate(5);
+  dataUpdateService.startPeriodicUpdate(process.env.UPDATE_INTERVAL_MINUTE ? Number(process.env.UPDATE_INTERVAL_MINUTE) : 5);
 
   // 启动服务器
   app.listen(PORT, () => {
