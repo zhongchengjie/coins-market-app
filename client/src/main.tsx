@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { AppProvider } from '@shopify/polaris';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import '@shopify/polaris/build/esm/styles.css';
-import App from './App1';
+import App from './App';
 
 // 创建React Query客户端
 const queryClient = new QueryClient({
