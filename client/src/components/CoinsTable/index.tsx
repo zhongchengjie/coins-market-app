@@ -62,7 +62,7 @@ const CoinsTable: React.FC<CoinsTableProps> = ({
   // 表格数据
   const coinsDataRows = coinsData.map((item: any, index: number) => [
     <p className={styles.text_no}>{index + 1}</p>,
-    <InlineStack align="start" blockAlign="center" gap="300">
+    <InlineStack align="start" blockAlign="center" gap="300" wrap={false}>
       <FallbackThumbnail
         src={item.image}
         alt={item.name}
@@ -89,7 +89,7 @@ const CoinsTable: React.FC<CoinsTableProps> = ({
   };
 
   return (
-    <Box padding="400">
+    <Box padding={{xs: '100', sm: '100', md: '400', lg: '400', xl: '400'}}>
       <DataTable
         columnContentTypes={[
           "numeric",

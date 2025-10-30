@@ -30,8 +30,8 @@ export const SearchBar: React.FC<SearchBarProps> = ({
   }, [onSearch]);
 
   return (
-    <InlineStack gap="400" wrap={false} blockAlign="center">
-      <Box minWidth="40%">
+    <InlineStack align="start" blockAlign="center" gap="100" wrap={false}>
+      <Box minWidth="38%">
         <TextField
           label="Search"
           labelHidden
@@ -47,7 +47,6 @@ export const SearchBar: React.FC<SearchBarProps> = ({
         />
       </Box>
       <Button
-        icon={SearchIcon}
         loading={isLoading}
         onClick={handleSearch}
       >
