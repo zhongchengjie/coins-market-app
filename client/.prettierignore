@@ -1,3 +1,7 @@
 node_modules
-src/assets
+src/types
+.DS_Store
+*.local
 .prettierrc.json
+package.json
+package-lock.json

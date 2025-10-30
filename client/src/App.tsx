@@ -20,6 +20,7 @@ const App: React.FC = () => {
 
   // 搜索处理
   const handleSearch = useCallback((query: string) => {
+    console.log('23123');
     setSearchQuery(query);
   }, []);
 
