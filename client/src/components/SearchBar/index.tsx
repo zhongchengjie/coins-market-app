@@ -7,22 +7,16 @@ interface SearchBarProps {
   isLoading?: boolean;
 }
 
-export const SearchBar: React.FC<SearchBarProps> = ({
-  onSearch,
-  isLoading = false,
-}) => {
+export const SearchBar: React.FC<SearchBarProps> = ({ onSearch, isLoading = false }) => {
   const [searchQuery, setSearchQuery] = useState("");
 
   const handleSearch = useCallback(() => {
     onSearch(searchQuery);
   }, [searchQuery, onSearch]);
 
-  const handleBlur = useCallback(
-    () => {
-      handleSearch();
-    },
-    [handleSearch]
-  );
+  const handleBlur = useCallback(() => {
+    handleSearch();
+  }, [handleSearch]);
 
   const clearSearch = useCallback(() => {
     setSearchQuery("");
@@ -46,10 +40,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
           onBlur={handleBlur}
         />
       </Box>
-      <Button
-        loading={isLoading}
-        onClick={handleSearch}
-      >
+      <Button loading={isLoading} onClick={handleSearch}>
         搜索
       </Button>
     </InlineStack>

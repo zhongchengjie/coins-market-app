@@ -3,24 +3,20 @@ import { Frame, TopBar, Page, Layout, Card } from "@shopify/polaris";
 import { SearchBar } from "./components/SearchBar";
 import CoinsTable from "./components/CoinsTable";
 import { useGetCoinsList } from "./hooks/useCoins";
-import { SortField, OrderType } from './types';
+import { SortField, OrderType } from "./types";
 
 const App: React.FC = () => {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [sortField, setSortField] = useState<SortField>('market_cap');
-  const [sortOrder, setSortOrder] = useState<OrderType>('desc');
-  const {
-    data: coinsData,
-    isLoading: isLoadingCryptos,
-  } = useGetCoinsList({
+  const [searchQuery, setSearchQuery] = useState("");
+  const [sortField, setSortField] = useState<SortField>("market_cap");
+  const [sortOrder, setSortOrder] = useState<OrderType>("desc");
+  const { data: coinsData, isLoading: isLoadingCryptos } = useGetCoinsList({
     qs: searchQuery,
     sort: sortField,
-    order: sortOrder
+    order: sortOrder,
   });
 
   // 搜索处理
   const handleSearch = useCallback((query: string) => {
-    console.log('23123');
     setSearchQuery(query);
   }, []);
 
@@ -44,10 +40,7 @@ const App: React.FC = () => {
           <Layout.Section>
             <Card>
               <SearchBar isLoading={isLoadingCryptos} onSearch={handleSearch} />
-              <CoinsTable
-                coinsData={coinsData?.data || []}
-                onSortChange={handleSortChange}
-              />
+              <CoinsTable coinsData={coinsData?.data || []} onSortChange={handleSortChange} />
             </Card>
           </Layout.Section>
         </Layout>

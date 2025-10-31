@@ -1,5 +1,5 @@
 node_modules
-src/types
+src/assets
 .DS_Store
 *.local
 .prettierrc.json

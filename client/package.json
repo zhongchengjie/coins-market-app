@@ -9,12 +9,11 @@
     "lint:js": "eslint --ext .js,.jsx,.ts,.tsx ./src",
     "lint:prettier": "prettier -c --write \"src/**/*\"",
     "lint-staged": "lint-staged",
-    "prepare": "husky install",
     "preview": "vite preview"
   },
   "lint-staged": {
-    "**/*.{js,jsx,ts,tsx}": "eslint --ext .js,.jsx,.ts,.tsx",
-    "**/*.{js,jsx,tsx,ts,css,md,json}": "prettier --ignore-unknown --write"
+    "src/*.{js,jsx,ts,tsx}": "eslint --ext .js,.jsx,.ts,.tsx",
+    "src/*.{js,jsx,tsx,ts,css,md,json}": "prettier --ignore-unknown --write"
   },
   "dependencies": {
     "@shopify/polaris": "^12.0.0",

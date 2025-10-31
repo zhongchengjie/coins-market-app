@@ -1,19 +1,19 @@
-import { useCallback } from 'react';
+import { useCallback } from "react";
 
 // 格式化价格Hook
 const usePriceFormatter = () => {
   const formatPrice = useCallback((price: number): string => {
     if (price >= 1) {
-      return new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD',
+      return new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
       }).format(price);
     } else {
-      return new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD',
+      return new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
         minimumFractionDigits: 4,
         maximumFractionDigits: 8,
       }).format(price);
@@ -49,7 +49,7 @@ const usePriceFormatter = () => {
   }, []);
 
   const formatPercentage = useCallback((percentage: number): string => {
-    const sign = percentage >= 0 ? '+' : '';
+    const sign = percentage >= 0 ? "+" : "";
     return `${sign}${percentage.toFixed(2)}%`;
   }, []);
 
