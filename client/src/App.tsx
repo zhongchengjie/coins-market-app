@@ -9,7 +9,7 @@ const App: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [sortField, setSortField] = useState<SortField>("market_cap");
   const [sortOrder, setSortOrder] = useState<OrderType>("desc");
-  const { data: coinsData, isLoading: isLoadingCryptos } = useGetCoinsList({
+  const { data: coinsData, isLoading: isLoadingData } = useGetCoinsList({
     qs: searchQuery,
     sort: sortField,
     order: sortOrder,
@@ -38,8 +38,8 @@ const App: React.FC = () => {
       <Page title="加密货币" subtitle="加密货币实时行情">
         <Layout>
           <Layout.Section>
-            <Card>
-              <SearchBar isLoading={isLoadingCryptos} onSearch={handleSearch} />
+            <Card roundedAbove="xs">
+              <SearchBar isLoading={isLoadingData} onSearch={handleSearch} />
               <CoinsTable coinsData={coinsData?.data || []} onSortChange={handleSortChange} />
             </Card>
           </Layout.Section>

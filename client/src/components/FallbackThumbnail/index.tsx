@@ -2,18 +2,12 @@ import React, { useState, useEffect } from "react";
 import { Thumbnail, ThumbnailProps } from "@shopify/polaris";
 import CoinDefaultImg from "../../assets/images/coin_default_img.png";
 
-// 扩展 ThumbnailProps，添加自定义属性
 interface FallbackThumbnailProps extends Omit<ThumbnailProps, "source" | "alt"> {
-  /** 图片地址 */
-  src: string;
-  /** 图片描述 */
-  alt: string;
-  /** 默认图片地址 */
-  fallbackSrc?: string;
-  /** 加载失败时的替代文本 */
-  fallbackAlt?: string;
-  /** 图片大小 */
-  size?: "extraSmall" | "small" | "medium" | "large";
+  src: string; // 图片地址
+  alt: string; // 图片描述
+  fallbackSrc?: string; // 默认图片地址
+  fallbackAlt?: string; // 加载失败时的替代文本
+  size?: "extraSmall" | "small" | "medium" | "large"; // 图片大小
 }
 
 /**
@@ -53,7 +47,7 @@ export const FallbackThumbnail: React.FC<FallbackThumbnailProps> = ({ src, alt, 
   const finalSrc = imgLoadError ? fallbackSrc : src;
   const finalAlt = imgLoadError ? fallbackAlt || `默认图片 - ${alt}` : alt;
 
-  return <Thumbnail source={finalSrc} alt={finalAlt} size={size} {...thumbnailProps} />;
+  return <Thumbnail source={finalSrc} alt={finalAlt} size={size} {...thumbnailProps} transparent />;
 };
 
 export default FallbackThumbnail;

@@ -2,13 +2,13 @@ export interface Coins {
   id: number;
   symbol: string;
   name: string;
-  image?: string;
+  image: string;
   current_price: number;
-  market_cap?: number;
-  total_volume?: number;
-  price_change_percentage_24h?: number;
-  high_24h?: number;
-  low_24h?: number;
+  market_cap: number;
+  total_volume: number;
+  price_change_percentage_24h: number;
+  high_24h: number;
+  low_24h: number;
   last_updated: string;
 }
 

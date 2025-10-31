@@ -84,12 +84,13 @@ app.use((error: any, req: express.Request, res: express.Response, next: express.
 
 // 启动服务器
 async function startServer() {
+  
   // 初始化数据更新服务
   const dataUpdateService = new DataUpdateService();
-  await dataUpdateService.initializeData();
+  if (!process.env.UPDATE_INTERVAL_MINUTE) await dataUpdateService.initializeData();
 
   // 开始定期更新数据（每5分钟更新一次）
-  dataUpdateService.startPeriodicUpdate(process.env.UPDATE_INTERVAL_MINUTE ? Number(process.env.UPDATE_INTERVAL_MINUTE) : 5);
+  dataUpdateService.startPeriodicUpdate(process.env.UPDATE_INTERVAL_MINUTE ? Number(process.env.UPDATE_INTERVAL_MINUTE) : 10);
 
   // 启动服务器
   app.listen(PORT, () => {
