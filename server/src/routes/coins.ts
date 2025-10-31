@@ -10,4 +10,7 @@ router.get('/list', coinsController.getCoinsList);
 // 根据ID获取加密货币
 router.get('/:id', coinsController.getCoinDetailById);
 
+// 根据ID获取加密货币
+router.post('/favorite', coinsController.addFavoriteCoin);
+
 export default router;

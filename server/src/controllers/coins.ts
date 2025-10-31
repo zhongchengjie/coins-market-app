@@ -4,8 +4,9 @@ import {
   CoinsResponse,
   SortField,
   OrderType,
+  ApiSuccess,
   ApiError,
-  SingleCoinResponse,
+  CoinResponse,
 } from "../types";
 
 export class CoinsController {
@@ -79,7 +80,7 @@ export class CoinsController {
         return;
       }
 
-      const response: SingleCoinResponse = {
+      const response: CoinResponse = {
         success: true,
         data: coinData,
       };
@@ -91,6 +92,52 @@ export class CoinsController {
         error: "INTERNAL_ERROR",
         message: "获取加密货币数据时发生错误",
       };
+
+      res.status(500).json(errorResponse);
+    }
+  };
+
+  // 收藏加密货币
+  addFavoriteCoin = async (req: Request, res: Response): Promise<void> => {
+    const { symbol } = req.body;
+    const user_browser_id = req.headers['x-user-browser-id'];
+
+    if (!user_browser_id || typeof user_browser_id !== 'string') {
+      const errorResponse: ApiError = {
+        success: false,
+        error: "INVALID_PARAM",
+        message: "user_browser_id is invalid",
+      };
+      res.status(400).json(errorResponse);
+      return;
+    }
+
+    if (!symbol || typeof symbol !== 'string') {
+      const errorResponse: ApiError = {
+        success: false,
+        error: "INVALID_PARAM",
+        message: "symbol is invalid",
+      };
+      res.status(400).json(errorResponse);
+      return;
+    }
+    
+    try {
+      await this.coinService.addFavoriteCoin(user_browser_id, symbol);
+
+      const response: ApiSuccess = {
+        success: true,
+        message: '已收藏'
+      };
+
+      res.json(response);
+    } catch (error) {
+      const errorResponse: ApiError = {
+        success: false,
+        error: "INTERNAL_ERROR",
+        message: "收藏加密货币失败",
+      };
+
       res.status(500).json(errorResponse);
     }
   };

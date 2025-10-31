@@ -12,6 +12,12 @@ export interface Coins {
   last_updated: Date; // 最后更新时间
 }
 
+export interface FavoriteCoins {
+  id: number;
+  user_browser_id: string // 浏览器指纹
+  symbol: string; // 代码
+}
+
 export interface CoinsQueryResult {
   list: Coins[];
   total: number;
@@ -25,7 +31,7 @@ export interface CoinsResponse {
   limit: number;
 }
 
-export interface SingleCoinResponse {
+export interface CoinResponse {
   success: boolean;
   data: Coins;
 }
@@ -39,6 +45,12 @@ export interface SearchParams {
   limit?: number;
   sort?: SortField,
   order?: OrderType
+}
+
+export interface ApiSuccess {
+  success: true;
+  message: string;
+  data?: any
 }
 
 export interface ApiError {

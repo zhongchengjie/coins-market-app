@@ -1,10 +1,11 @@
 import axios from "axios";
+import { getBrowserFingerPrint } from "./common";
 
 const API_BASE_URL = "/api";
 
 const api = axios.create({
   baseURL: API_BASE_URL,
-  timeout: 10000,
+  timeout: 5000,
   headers: {
     "Content-Type": "application/json",
   },
@@ -12,8 +13,9 @@ const api = axios.create({
 
 // 请求拦截器
 api.interceptors.request.use(
-  (config) => {
+  async (config) => {
     // console.log(`🚀 发送请求: ${config.method?.toUpperCase()} ${config.url}`);
+    config.headers["X-User-Browser-ID"] = await getBrowserFingerPrint();
     return config;
   },
   (error) => {

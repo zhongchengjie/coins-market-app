@@ -34,6 +34,7 @@ export const FallbackThumbnail: React.FC<FallbackThumbnailProps> = ({ src, alt, 
 
     img.onload = handleLoad;
     img.onerror = handleError;
+    console.log("src////", src);
     img.src = src;
 
     // 清理函数
@@ -47,7 +48,7 @@ export const FallbackThumbnail: React.FC<FallbackThumbnailProps> = ({ src, alt, 
   const finalSrc = imgLoadError ? fallbackSrc : src;
   const finalAlt = imgLoadError ? fallbackAlt || `默认图片 - ${alt}` : alt;
 
-  return <Thumbnail source={finalSrc} alt={finalAlt} size={size} {...thumbnailProps} transparent />;
+  return <Thumbnail source={finalSrc} alt={finalAlt} size={size} {...thumbnailProps} transparent={true} />;
 };
 
 export default FallbackThumbnail;

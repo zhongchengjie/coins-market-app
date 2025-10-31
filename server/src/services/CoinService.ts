@@ -1,6 +1,6 @@
 import knex from "knex";
 import { dbConf } from "../config";
-import { Coins, SearchParams, CoinsQueryResult } from "../types";
+import { Coins, SearchParams, CoinsQueryResult, FavoriteCoins } from "../types";
 
 const db = knex(dbConf);
 
@@ -66,6 +66,28 @@ export class CoinService {
         });
       }
     }
+  }
+
+  // 收藏的加密货币
+  async getFavoriteCoins(user_browser_id: string): Promise<FavoriteCoins[]> {
+    return await db("favorite_coins").select("symbol").where({ user_browser_id});
+  }
+
+  // 收藏加密货币
+  async addFavoriteCoin(user_browser_id: string, symbol: string): Promise<void> {
+    await db("favorite_coins").insert({
+      user_browser_id,
+      symbol,
+      favorite_time: new Date(),
+    });
+  }
+
+  // 取消收藏加密货币
+  async removeFavoriteCoin(user_browser_id: string, symbol: string): Promise<void> {
+    await db("favorite_coins").where({
+      user_browser_id,
+      symbol,
+    }).del();
   }
 
   // 关闭数据库连接

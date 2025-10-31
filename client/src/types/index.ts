@@ -20,9 +20,15 @@ export interface CoinsResponse {
   limit: number;
 }
 
-export interface SingleCoinResponse {
+export interface CoinResponse {
   success: boolean;
   data: Coins;
+}
+
+export interface ApiSuccess {
+  success: true;
+  message: string;
+  data?: any;
 }
 
 export interface ApiError {
@@ -38,6 +44,6 @@ export interface SearchParams {
   qs?: string;
   page?: number;
   limit?: number;
-  sort?: SortField,
-  order?: OrderType
+  sort?: SortField;
+  order?: OrderType;
 }

@@ -1,0 +1,15 @@
+.custom-text-gray .Polaris-Text--root {
+  color: #868686 !important;
+}
+
+.custom-text-blue .Polaris-Text--root {
+  color: #1256a0 !important;
+}
+
+.custom-text-green .Polaris-Text--root {
+  color: #007c32 !important;
+}
+
+.custom-text-red .Polaris-Text--root {
+  color: #d91400 !important;
+}

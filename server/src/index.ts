@@ -10,16 +10,7 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 // 安全中间件
-app.use(helmet({
-  contentSecurityPolicy: {
-    directives: {
-      defaultSrc: ["'self'"],
-      imgSrc: ["'self'", "data:", "https://assets.coingecko.com"],
-      scriptSrc: ["'self'"],
-      styleSrc: ["'self'", "'unsafe-inline'"],
-    },
-  },
-}));
+app.use(helmet());
 
 // CORS配置
 app.use(cors({
@@ -48,6 +39,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // 静态资源
 app.use(express.static(path.join(__dirname, '..', 'public')));
+app.use(express.static(path.join(__dirname, '..', 'static')));
 
 // 健康检查端点
 app.get('/health', (req, res) => {
