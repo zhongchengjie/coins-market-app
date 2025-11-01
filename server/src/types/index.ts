@@ -10,6 +10,7 @@ export interface Coins {
   high_24h: number; // 最高值
   low_24h: number; // 最低值
   last_updated: Date; // 最后更新时间
+  is_favorited?: boolean // 是否被当前user_browser_id收藏
 }
 
 export interface FavoriteCoins {
@@ -20,7 +21,7 @@ export interface FavoriteCoins {
 
 export interface CoinsQueryResult {
   list: Coins[];
-  total: number;
+  total?: number;
 }
 
 export interface CoinsResponse {

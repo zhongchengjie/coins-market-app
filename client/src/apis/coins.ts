@@ -9,6 +9,12 @@ export async function getCoinsList(params: SearchParams = {}): Promise<CoinsResp
 
 // 收藏加密货币
 export async function addFavoriteCoin(symbol: string): Promise<ApiSuccess> {
-  const response = await api.post("/coins/favorite", { symbol });
+  const response = await api.post("/coins/favorite/add", { symbol });
+  return response.data;
+}
+
+// 取消收藏加密货币
+export async function removeFavoriteCoin(symbol: string): Promise<ApiSuccess> {
+  const response = await api.post("/coins/favorite/cancel", { symbol });
   return response.data;
 }

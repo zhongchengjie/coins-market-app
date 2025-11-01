@@ -2,7 +2,7 @@ import React, { useState, useCallback } from "react";
 import { Frame, TopBar, Page, Layout, Card } from "@shopify/polaris";
 import { SearchBar } from "./components/SearchBar";
 import CoinsTable from "./components/CoinsTable";
-import { useGetCoinsList } from "./hooks/useCoins";
+import { useGetCoinsList } from "./hooks/useQueryCoins";
 import { SortField, OrderType } from "./types";
 
 const App: React.FC = () => {

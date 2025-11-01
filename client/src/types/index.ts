@@ -10,6 +10,7 @@ export interface Coins {
   high_24h: number;
   low_24h: number;
   last_updated: string;
+  is_favorited?: boolean; // 是否被当前user_browser_id收藏
 }
 
 export interface CoinsResponse {

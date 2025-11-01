@@ -1,11 +1,13 @@
-import React from "react";
-import { Box, DataTable, Button, InlineStack, Icon, Text, useBreakpoints } from "@shopify/polaris";
-import { StarIcon } from "@shopify/polaris-icons";
-import { addFavoriteCoin } from "../../apis/coins";
+import React, { useState, useCallback } from "react";
+import { useQueryClient } from "react-query";
+import { Box, DataTable, Button, InlineStack, Icon, Text, useBreakpoints, Toast } from "@shopify/polaris";
+import { StarIcon, StarFilledIcon } from "@shopify/polaris-icons";
+import { addFavoriteCoin, removeFavoriteCoin } from "../../apis/coins";
 import FallbackThumbnail from "../FallbackThumbnail";
 import { Coins, SortField, OrderType } from "../../types";
 import usePriceFormatter from "../../hooks/usePriceFormatter";
 import "./coins_table.css";
+
 interface CoinsTableProps {
   coinsData: Coins[];
   onSortChange: (field: SortField, order: OrderType) => void;
@@ -14,10 +16,35 @@ interface CoinsTableProps {
 const CoinsTable: React.FC<CoinsTableProps> = ({ coinsData, onSortChange }) => {
   const { formatPrice, formatMarketCap, formatVolume, formatPercentage } = usePriceFormatter();
   const { lgDown } = useBreakpoints();
-  const fixedFirstColumns = lgDown ? 3 : 0;
+  const fixedColumns = lgDown ? 3 : 0;
+  const [activeToast, setActiveToast] = useState<boolean>(false);
+  const [toastConfig, setToastConfig] = useState({ content: "", duration: 2000, error: false });
+  const queryClient = useQueryClient();
 
-  const handleIconClick = async(symbol: string) => {
-    await addFavoriteCoin(symbol);
+  // toast显示/隐藏
+  const toggleToast = useCallback(() => setActiveToast((active) => !active), []);
+
+  // toast
+  const toastMarkup = activeToast ? <Toast onDismiss={toggleToast} {...toastConfig} /> : null;
+
+  // 收藏/取消收藏
+  const handleFavoriteClick = async (symbol: string, is_favorited: boolean = false) => {
+    const res = !is_favorited ? await addFavoriteCoin(symbol) : await removeFavoriteCoin(symbol);
+    if (res.success) {
+      setToastConfig({
+        ...toastConfig,
+        content: !is_favorited ? "已收藏" : "已取消收藏",
+        error: false,
+      });
+    } else {
+      setToastConfig({
+        ...toastConfig,
+        content: !is_favorited ? "收藏失败" : "取消收藏失败",
+        error: true,
+      });
+    }
+    setActiveToast(true);
+    queryClient.invalidateQueries("coins_query");
   };
 
   // 表头
@@ -50,10 +77,14 @@ const CoinsTable: React.FC<CoinsTableProps> = ({ coinsData, onSortChange }) => {
   ];
 
   // 表格数据
-  const coinsDataRows = coinsData.map((item: Coins, index: number) => [
-    <Button variant="plain" icon={<Icon source={StarIcon} tone="base" />} onClick={() => handleIconClick(item.symbol)}></Button>,
+  const coinsDataRows = coinsData.map((item: Coins) => [
+    <Button
+      variant="plain"
+      icon={<Icon source={item.is_favorited ? StarFilledIcon : StarIcon} tone="base" />}
+      onClick={() => handleFavoriteClick(item.symbol, item.is_favorited)}
+    ></Button>,
     <Text alignment="center" as="p">
-      {index + 1}
+      {item.id}
     </Text>,
     <InlineStack align="start" blockAlign="center" gap="300" wrap={false}>
       <FallbackThumbnail src={`${location.protocol}//${location.host}/images/${item.image}`} alt={item.name} size="extraSmall" />
@@ -117,8 +148,9 @@ const CoinsTable: React.FC<CoinsTableProps> = ({ coinsData, onSortChange }) => {
         rows={coinsDataRows}
         footerContent={`Showing ${coinsDataRows.length} of ${coinsDataRows.length} results`}
         onSort={handleSort}
-        fixedFirstColumns={fixedFirstColumns}
+        fixedFirstColumns={fixedColumns}
       />
+      {toastMarkup}
     </Box>
   );
 };

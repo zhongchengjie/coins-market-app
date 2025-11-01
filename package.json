@@ -1,7 +1,7 @@
 {
   "name": "coins-market-app",
   "version": "1.0.0",
-  "description": "基于Web的加密货币实时行情应用程序",
+  "description": "基于Web的加密货币实时行情查询应用程序",
   "main": "index.js",
   "scripts": {
     "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",

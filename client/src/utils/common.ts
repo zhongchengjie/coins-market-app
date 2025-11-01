@@ -1,5 +1,4 @@
 import FingerprintJS from "@fingerprintjs/fingerprintjs";
-import { useAppBridge } from "@shopify/app-bridge-react";
 
 export async function getBrowserFingerPrint(): Promise<string | null> {
   const browserFingerPrint = localStorage.getItem("browserFingerPrint");
@@ -14,9 +13,4 @@ export async function getBrowserFingerPrint(): Promise<string | null> {
     localStorage.setItem("browserFingerPrint", "");
     return null;
   }
-}
-
-export function showToast(message: string) {
-  const shopify = useAppBridge();
-  shopify.toast.show(message);
 }
