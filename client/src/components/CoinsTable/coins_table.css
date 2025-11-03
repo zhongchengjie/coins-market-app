@@ -1,3 +1,9 @@
+
+.Polaris-DataTable__TableRow .Polaris-DataTable__Cell:first-child {
+  text-align: center;
+  vertical-align: bottom;
+}
+
 .custom-text-gray .Polaris-Text--root {
   color: #868686 !important;
 }
@@ -6,10 +12,26 @@
   color: #1256a0 !important;
 }
 
+.text-overflow .Polaris-Text--root {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .custom-text-green .Polaris-Text--root {
   color: #007c32 !important;
 }
 
 .custom-text-red .Polaris-Text--root {
   color: #d91400 !important;
+}
+
+@media (max-width: 768px) {
+  .Polaris-DataTable__Cell {
+    padding: 6px 4px !important;
+  }
+  
+  .Polaris-DataTable__Heading {
+    padding: 6px 4px !important;
+  }
 }

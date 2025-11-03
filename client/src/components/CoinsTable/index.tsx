@@ -15,7 +15,7 @@ interface CoinsTableProps {
 
 const CoinsTable: React.FC<CoinsTableProps> = ({ coinsData, onSortChange }) => {
   const { formatPrice, formatMarketCap, formatVolume, formatPercentage } = usePriceFormatter();
-  const { lgDown } = useBreakpoints();
+  const { smDown, lgDown } = useBreakpoints();
   const fixedColumns = lgDown ? 2 : 0;
   const [activeToast, setActiveToast] = useState<boolean>(false);
   const [toastConfig, setToastConfig] = useState({ content: "", duration: 2000, error: false });
@@ -80,10 +80,10 @@ const CoinsTable: React.FC<CoinsTableProps> = ({ coinsData, onSortChange }) => {
       icon={<Icon source={item.is_favorited ? StarFilledIcon : StarIcon} tone="base" />}
       onClick={() => handleFavoriteClick(item.symbol, item.is_favorited)}
     ></Button>,
-    <InlineStack align="start" blockAlign="center" gap="300" wrap={false}>
+    <InlineStack align="start" blockAlign="center" gap="200" wrap={false}>
       <FallbackThumbnail src={`${location.protocol}//${location.host}/images/${item.image}`} alt={item.name} size="extraSmall" />
-      <Box>
-        <div className="custom-text-blue">
+      <Box width={smDown ? "66px" : "fit-content"}>
+        <div className="custom-text-blue text-overflow">
           <Text variant="bodyLg" as="p" fontWeight="bold">
             {item.name}
           </Text>
@@ -133,6 +133,7 @@ const CoinsTable: React.FC<CoinsTableProps> = ({ coinsData, onSortChange }) => {
   return (
     <Box padding={{ xs: "100", sm: "100", md: "400", lg: "400", xl: "400" }}>
       <DataTable
+        stickyHeader
         verticalAlign="middle"
         columnContentTypes={["text", "text", "numeric", "numeric", "numeric", "numeric", "numeric", "numeric"]}
         headings={coinsColumns}
