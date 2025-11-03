@@ -16,7 +16,7 @@ interface CoinsTableProps {
 const CoinsTable: React.FC<CoinsTableProps> = ({ coinsData, onSortChange }) => {
   const { formatPrice, formatMarketCap, formatVolume, formatPercentage } = usePriceFormatter();
   const { lgDown } = useBreakpoints();
-  const fixedColumns = lgDown ? 3 : 0;
+  const fixedColumns = lgDown ? 2 : 0;
   const [activeToast, setActiveToast] = useState<boolean>(false);
   const [toastConfig, setToastConfig] = useState({ content: "", duration: 2000, error: false });
   const queryClient = useQueryClient();
@@ -50,9 +50,6 @@ const CoinsTable: React.FC<CoinsTableProps> = ({ coinsData, onSortChange }) => {
   // 表头
   const coinsColumns = [
     <Icon source={StarIcon} tone="base" />,
-    <Text alignment="center" as="p" fontWeight="semibold">
-      排名
-    </Text>,
     <Text alignment="start" as="p" fontWeight="semibold">
       货币名称
     </Text>,
@@ -83,9 +80,6 @@ const CoinsTable: React.FC<CoinsTableProps> = ({ coinsData, onSortChange }) => {
       icon={<Icon source={item.is_favorited ? StarFilledIcon : StarIcon} tone="base" />}
       onClick={() => handleFavoriteClick(item.symbol, item.is_favorited)}
     ></Button>,
-    <Text alignment="center" as="p">
-      {item.id}
-    </Text>,
     <InlineStack align="start" blockAlign="center" gap="300" wrap={false}>
       <FallbackThumbnail src={`${location.protocol}//${location.host}/images/${item.image}`} alt={item.name} size="extraSmall" />
       <Box>
@@ -140,9 +134,9 @@ const CoinsTable: React.FC<CoinsTableProps> = ({ coinsData, onSortChange }) => {
     <Box padding={{ xs: "100", sm: "100", md: "400", lg: "400", xl: "400" }}>
       <DataTable
         verticalAlign="middle"
-        columnContentTypes={["text", "text", "text", "numeric", "numeric", "numeric", "numeric", "numeric", "numeric"]}
+        columnContentTypes={["text", "text", "numeric", "numeric", "numeric", "numeric", "numeric", "numeric"]}
         headings={coinsColumns}
-        sortable={[false, false, true, true, true, true, true, true, true]}
+        sortable={[false, true, true, true, true, true, true, true]}
         defaultSortDirection="descending"
         initialSortColumnIndex={6}
         rows={coinsDataRows}

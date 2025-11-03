@@ -146,7 +146,7 @@ export class CoinsController {
     
     try {
       await this.coinService.addFavoriteCoin(user_browser_id, symbol);
-
+    
       const response: ApiSuccess = {
         success: true,
         message: '已收藏'

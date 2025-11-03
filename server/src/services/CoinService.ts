@@ -90,11 +90,14 @@ export class CoinService {
     user_browser_id: string,
     symbol: string
   ): Promise<void> {
-    await db("favorite_coins").insert({
-      user_browser_id,
-      symbol,
-      favorite_time: new Date(),
-    });
+    const list = await db("favorite_coins").select("id").where({ user_browser_id, symbol });
+    if (!list.length) {
+      await db("favorite_coins").insert({
+        user_browser_id,
+        symbol,
+        favorite_time: new Date(),
+      });
+    }
   }
 
   // 取消收藏加密货币
